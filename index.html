@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MULA X PLIER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container flex flex-col lg:flex-row gap-6 items-stretch max-w-5xl mx-auto">
+        <!-- Left: Game/Graph -->
+        <div class="flex-1 flex flex-col justify-center">
+            <h1 class="text-3xl font-bold text-center mb-4">MULA X PLIER</h1>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg">Balance: $<span id="balance">1000.00</span></span>
+                <span class="status-text" id="status">Waiting for next round...</span>
+            </div>
+            <!-- Crash Point History moved here -->
+            <div class="bet-history-container mb-4">
+                <h2 class="text-lg font-bold mb-2 text-center">Crash Point History</h2>
+                <div id="crashHistoryList">
+                    <div class="text-center text-sm text-gray-400">No crash history.</div>
+                </div>
+            </div>
+            <div class="multiplier-text" id="multiplier">1.00x</div>
+            <div class="w-full max-w-full overflow-x-auto">
+    <canvas id="gameCanvas"></canvas>
+</div>
+            <div id="messageBox" class="message-box hidden"></div>
+        </div>
+        <!-- Right: Controls and History -->
+        <div class="flex flex-col gap-4 w-full max-w-md mx-auto">
+            <!-- Manual Bet Inputs styled like Auto Bet -->
+            <div class="w-full flex flex-row flex-wrap items-center justify-center gap-2">
+                <div class="flex flex-col">
+                    <label for="betAmount" class="mb-1 text-sm text-gray-300">Bet Amount ($)</label>
+                    <input
+                        type="number"
+                        id="betAmount"
+                        value="10.00"
+                        min="1"
+                        step="0.01"
+                        class="rounded-lg p-2 border border-gray-400 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1 min-w-[90px] max-w-[120px]"
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <label for="autoCashOut" class="mb-1 text-sm text-gray-300">Auto Cash Out (x)</label>
+                    <input
+                        type="number"
+                        id="autoCashOut"
+                        value="2.00"
+                        min="1.01"
+                        step="0.01"
+                        class="rounded-lg p-2 border border-gray-400 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1 min-w-[90px] max-w-[120px]"
+                    >
+                </div>
+            </div>
+            <!-- Manual Bet Section (Place Bet and Cash Out buttons) -->
+            <div class="flex justify-center gap-4">
+                <button id="placeBetBtn" class="button button-primary">Place Bet</button>
+                <button id="cashOutBtn" class="button button-success" disabled>Cash Out</button>
+            </div>
+            <!-- Auto Bet Section (responsive) -->
+            <div class="w-full flex flex-col items-center">
+                <!-- Proper label above the boxes -->
+                <label class="font-semibold text-base mb-2 text-center w-full">Auto Bet</label>
+                <div class="flex flex-row flex-wrap items-center justify-center gap-2 mb-2 w-full sm:w-auto">
+                    <div class="flex flex-col">
+                        <label for="autoBetRoundsInput" class="mb-1 text-sm text-gray-300">Rounds</label>
+                        <input
+                            type="number"
+                            id="autoBetRoundsInput"
+                            min="1"
+                            placeholder="Rounds"
+                            class="rounded-lg p-2 border border-gray-400 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1 min-w-[90px] max-w-[120px]"
+                        >
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="autoBetAmountInput" class="mb-1 text-sm text-gray-300">Amount</label>
+                        <input
+                            type="number"
+                            id="autoBetAmountInput"
+                            min="1"
+                            step="0.01"
+                            placeholder="Amount"
+                            class="rounded-lg p-2 border border-gray-400 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1 min-w-[90px] max-w-[120px]"
+                        >
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="autoBetAutoCashOutInput" class="mb-1 text-sm text-gray-300">Auto Cash Out (x)</label>
+                        <input
+                            type="number"
+                            id="autoBetAutoCashOutInput"
+                            min="1.01"
+                            step="0.01"
+                            placeholder="Auto Cash Out (x)"
+                            class="rounded-lg p-2 border border-gray-400 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1 min-w-[90px] max-w-[120px]"
+                        >
+                    </div>
+                    <button
+                        id="autoBetBtn"
+                        class="button button-primary mx-1 flex-1 min-w-[110px] self-end"
+                    >Start Auto Bet</button>
+                    <button
+                        id="stopAutoBetBtn"
+                        class="button button-danger mx-1 flex-1 min-w-[110px] self-end"
+                        disabled
+                    >Stop Auto Bet</button>
+                </div>
+                <span id="autoBetStatus" class="ml-2 text-sm text-blue-400 mt-1 text-center w-full"></span>
+            </div>
+            <!-- Bet history below the game -->
+            <div class="bet-history-container">
+                <h2 class="text-xl font-bold mb-2 text-center">Bet History</h2>
+                <div id="betHistoryList">
+                    <div class="text-center text-sm text-gray-400">No recent bets.</div>
+                </div>
+                <hr class="my-2 border-gray-600">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
