@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MULA X PLIER</title>
+    <title>Crash Game</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="game-container flex flex-col lg:flex-row gap-6 items-stretch max-w-5xl mx-auto">
         <!-- Left: Game/Graph -->
         <div class="flex-1 flex flex-col justify-center">
-            <h1 class="text-3xl font-bold text-center mb-4">MULA X PLIER</h1>
+            <h1 class="text-3xl font-bold text-center mb-4">Crash Game</h1>
             <div class="flex justify-between items-center mb-4">
                 <span class="text-lg">Balance: $<span id="balance">1000.00</span></span>
                 <span class="status-text" id="status">Waiting for next round...</span>
@@ -24,9 +24,7 @@
                 </div>
             </div>
             <div class="multiplier-text" id="multiplier">1.00x</div>
-            <div class="w-full max-w-full overflow-x-auto">
-    <canvas id="gameCanvas"></canvas>
-</div>
+            <canvas id="gameCanvas" width="500" height="250"></canvas>
             <div id="messageBox" class="message-box hidden"></div>
         </div>
         <!-- Right: Controls and History -->

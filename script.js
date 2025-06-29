@@ -237,9 +237,6 @@ function initializeGame() {
 }
 
 function drawGraph() {
-    const canvasFontSize = Math.max(10, Math.min(16, Math.floor(gameCanvas.height * 0.05)));
-    ctx.font = `${canvasFontSize}px Inter`;
-
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
     const timeElapsed = gameActive ? (performance.now() - gameStartTime) / 1000 : 0;
@@ -538,20 +535,12 @@ function cashOut() {
 
 window.onload = function() {
     initializeGame();
-    
     const resizeCanvas = () => {
-        const container = gameCanvas.parentElement;
-        const containerWidth = container.clientWidth;
-        const aspectRatio = 2; // width:height
-
-        // Set canvas dimensions dynamically
+        const containerWidth = gameCanvas.parentElement.clientWidth;
         gameCanvas.width = containerWidth;
-        gameCanvas.height = containerWidth / aspectRatio;
-
-        drawGraph(); // Redraw with new dimensions
+        gameCanvas.height = containerWidth * 0.5;
+        drawGraph();
     };
-
     window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('orientationchange', resizeCanvas);
     resizeCanvas();
 };
